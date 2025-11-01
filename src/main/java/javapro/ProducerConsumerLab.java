@@ -52,17 +52,27 @@ public class ProducerConsumerLab {
      *    - In catch block, print "[Producer] was interrupted"
      */
     static class Producer implements Runnable {
+    	private final SharedBuffer buffer;
         // TODO 1: Implement Producer class here
         // Step 1: Add private SharedBuffer field
 
         // Step 2: Add constructor
         public Producer(SharedBuffer buffer) {
+        	this.buffer = buffer;
             // Initialize the buffer field
         }
 
         // Step 3: Implement run() method
         @Override
         public void run() {
+        	try {
+        		for (int i = 0; i < 10; i++) {
+        			buffer.produce(i);
+        		}
+        		System.out.println("[Producer] finished producing 10 items");
+        	} catch (InterruptedException e) {
+        		System.out.println("[Producer] was interrupted");
+        	}
             // Add your implementation here
         }
     }
@@ -71,17 +81,27 @@ public class ProducerConsumerLab {
      * TODO 2: Implement Consumer class
      */
     static class Consumer implements Runnable {
+    	private final SharedBuffer buffer;
         // TODO 2: Implement Consumer class here
         // Step 1: Add private SharedBuffer field
 
         // Step 2: Add constructor
         public Consumer(SharedBuffer buffer) {
+        	this.buffer = buffer;
             // Initialize the buffer field
         }
 
         // Step 3: Implement run() method
         @Override
         public void run() {
+        	try {
+        		for (int i = 0; i < 10; i++) {
+        			buffer.consume();
+        		}
+        		System.out.println("[Consumer] finished consuming 10 items");
+        	} catch (InterruptedException e) {
+        		System.out.println("[Consumer] was interrupted");
+        	}
             // Add your implementation here
         }
     }
